@@ -7,5 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: '/school-app-mvp/',
+  base: '/school-app-frontend/',
 })

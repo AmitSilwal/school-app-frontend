@@ -6,7 +6,7 @@ import DashboardPage from "./pages/DashboardPage"
 
 function App() {
   return (
-    <BrowserRouter basename="/school-app-mvp">
+    <BrowserRouter basename="/school-app-frontend">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
