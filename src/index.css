@@ -1,1 +1,24 @@
 @import "tailwindcss";
+.primary-btn {
+  @apply bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition;
+}
+
+.danger-btn {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition;
+}
+
+.success-btn {
+  @apply bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-500 transition;
+}
+
+.warning-btn {
+  @apply bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-400 transition;
+}
+
+.input-field {
+  @apply border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+.card {
+  @apply bg-white p-6 rounded-2xl shadow;
+}
