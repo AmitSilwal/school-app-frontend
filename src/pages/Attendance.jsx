@@ -3,31 +3,43 @@ import Sidebar from "../components/Sidebar"
 
 function Attendance() {
 
+  const studentData =
+    JSON.parse(localStorage.getItem("students")) || []
+
   const [students, setStudents] = useState(() => {
 
     const savedAttendance =
       localStorage.getItem("attendance")
 
-    return savedAttendance
-      ? JSON.parse(savedAttendance)
-      : [
-          {
-            id: 1,
-            name: "Rahul Sharma",
-            status: "Present",
-          },
-          {
-            id: 2,
-            name: "Priya Das",
-            status: "Absent",
-          },
-          {
-            id: 3,
-            name: "Amit Roy",
-            status: "Present",
-          },
-        ]
+    if (savedAttendance) {
+      return JSON.parse(savedAttendance)
+    }
+
+    return studentData.map((student) => ({
+      id: student.id,
+      name: student.name,
+      status: "Present",
+    }))
   })
+
+  useEffect(() => {
+
+    const updatedAttendance = studentData.map((student) => {
+
+      const existingStudent = students.find(
+        (s) => s.id === student.id
+      )
+
+      return existingStudent || {
+        id: student.id,
+        name: student.name,
+        status: "Present",
+      }
+    })
+
+    setStudents(updatedAttendance)
+
+  }, [])
 
   useEffect(() => {
 
@@ -75,7 +87,7 @@ function Attendance() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
 
-          <div className="bg-white p-6 rounded-xl shadow">
+          <div className="card">
 
             <h2 className="text-gray-500">
               Total Students
@@ -87,7 +99,7 @@ function Attendance() {
 
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow">
+          <div className="card">
 
             <h2 className="text-gray-500">
               Present
@@ -99,7 +111,7 @@ function Attendance() {
 
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow">
+          <div className="card">
 
             <h2 className="text-gray-500">
               Absent
@@ -113,22 +125,22 @@ function Attendance() {
 
         </div>
 
-        <div className="bg-white rounded-xl shadow p-6">
+        <div className="card overflow-x-auto">
 
           <table className="w-full">
 
             <thead>
-              <tr className="border-b">
+              <tr className="border-b bg-gray-50">
 
-                <th className="text-left p-3">
+                <th className="text-left p-4">
                   Student Name
                 </th>
 
-                <th className="text-left p-3">
+                <th className="text-left p-4">
                   Status
                 </th>
 
-                <th className="text-left p-3">
+                <th className="text-left p-4">
                   Actions
                 </th>
 
@@ -141,14 +153,14 @@ function Attendance() {
 
                 <tr
                   key={student.id}
-                  className="border-b"
+                  className="border-b hover:bg-gray-50"
                 >
 
-                  <td className="p-3">
+                  <td className="p-4">
                     {student.name}
                   </td>
 
-                  <td className="p-3">
+                  <td className="p-4">
 
                     <span
                       className={`px-3 py-1 rounded-full text-white ${
@@ -162,7 +174,7 @@ function Attendance() {
 
                   </td>
 
-                  <td className="p-3 space-x-2">
+                  <td className="p-4 space-x-2">
 
                     <button
                       onClick={() =>
@@ -171,7 +183,7 @@ function Attendance() {
                           "Present"
                         )
                       }
-                      className="bg-green-600 text-white px-4 py-2 rounded"
+                      className="success-btn"
                     >
                       Present
                     </button>
@@ -183,7 +195,7 @@ function Attendance() {
                           "Absent"
                         )
                       }
-                      className="bg-red-600 text-white px-4 py-2 rounded"
+                      className="danger-btn"
                     >
                       Absent
                     </button>
